@@ -4,7 +4,7 @@ import logo from "../assets/logo.svg";
 
 const Header: React.FC = () => {
     return (
-        <AppBar color="transparent">
+        <AppBar color="transparent" position="static">
             <Toolbar style={{ gap: 10 }}>
                 <img
                     src={logo}
