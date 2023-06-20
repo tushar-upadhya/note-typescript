@@ -1,22 +1,61 @@
 import { InputBase, Box, Button, styled } from "@mui/material";
 
+import { useState } from "react";
+
+import { INote } from "../interfaces/interFace";
+
+const defaultObject = {
+    id: 0,
+    title: "",
+    details: "",
+    color: "",
+    date: new Date().toLocaleString().toString(),
+};
+
 const CreateNotes: React.FC = () => {
+    const [note, setNote] = useState<INote>(defaultObject);
+
+    const changeHandle = (
+        e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
+    ) => {
+        // if (error) setError("");
+        // console.log(e.target.name, e.target.value);
+
+        setNote({ ...note, [e.target.name]: e.target.value });
+    };
+    // console.log(note);
+
+    const onClickHandle = () => {};
+
     return (
         <Container>
-            <InputBase placeholder="title" />
+            <InputBase
+                placeholder="title"
+                onChange={(e) => changeHandle(e)}
+                name="title"
+            />
 
             <Box component="span">30</Box>
 
-            <InputBase placeholder="Details" />
+            <InputBase
+                placeholder="Details"
+                onChange={(e) => changeHandle(e)}
+                name="details"
+            />
+
             <Box component="span">30</Box>
 
             <InputBase
                 type="color"
                 defaultValue={"#f5f5f5"}
                 placeholder="color"
+                onChange={(e) => changeHandle(e)}
+                name="color"
             />
 
-            <Button variant="outlined">Create</Button>
+            <Button variant="outlined" onClick={onClickHandle()}>
+                Create
+            </Button>
         </Container>
     );
 };
