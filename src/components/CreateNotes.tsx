@@ -30,7 +30,7 @@ const CreateNotes: React.FC<ICreateNoteProps> = ({ addHandle }) => {
     // console.log(note);
 
     const onClickHandle = () => {
-        addHandle({ ...note, id: "" });
+        addHandle({ ...note, id: " " });
     };
 
     return (
