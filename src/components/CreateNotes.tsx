@@ -1,8 +1,10 @@
-import { InputBase, Box, Button, styled } from "@mui/material";
+import { InputBase, Box, Button, styled, Typography } from "@mui/material";
 
 import { useState } from "react";
 
 import { INote } from "../interfaces/interFace";
+
+import { v4 as uuid } from "uuid";
 
 const defaultObject = {
     id: 0,
@@ -19,18 +21,26 @@ interface ICreateNoteProps {
 const CreateNotes: React.FC<ICreateNoteProps> = ({ addHandle }) => {
     const [note, setNote] = useState<INote>(defaultObject);
 
+    const [error, setError] = useState<string>("");
+
     const changeHandle = (
         e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
     ) => {
-        // if (error) setError("");
-        // console.log(e.target.name, e.target.value);
+        if (error) setError("");
+        console.log(e.target.name, e.target.value);
 
         setNote({ ...note, [e.target.name]: e.target.value });
     };
-    // console.log(note);
+    console.log(note);
 
-    const onClickHandle = () => {
-        addHandle({ ...note, id: " " });
+    const onCreateHandle = () => {
+        if (!note.title && !note.details) {
+            setError("Fill all Fields");
+            return;
+        }
+
+        addHandle({ ...note, id: uuid() });
+        setNote(defaultObject);
     };
 
     return (
@@ -59,9 +69,11 @@ const CreateNotes: React.FC<ICreateNoteProps> = ({ addHandle }) => {
                 name="color"
             />
 
-            <Button variant="outlined" onClick={onClickHandle()}>
+            <Button variant="outlined" onClick={() => onCreateHandle()}>
                 Create
             </Button>
+
+            {error && <Error>{error}</Error>}
         </Container>
     );
 };
@@ -90,6 +102,13 @@ const Container = styled(Box)`
         position: relative;
         right: 40px;
     }
+`;
+
+const Error = styled(Typography)`
+    background: red;
+    color: #fff;
+    padding: 10px;
+    width: 50%;
 `;
 
 export default CreateNotes;

@@ -17,13 +17,19 @@ function App() {
         setNotes([...notes, note]);
     };
 
+    const deleteNoteHandle = (id: number) => {
+        const updatedNotes = notes.filter((note) => note.id !== id);
+
+        setNotes(updatedNotes);
+    };
+
     return (
         <>
             <Header />
 
             <Box style={{ padding: 20 }}>
                 <CreateNotes addHandle={addHandle} />
-                <Notes />
+                <Notes notes={notes} deleteNoteHandle={deleteNoteHandle} />
             </Box>
         </>
     );
