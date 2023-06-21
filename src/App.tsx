@@ -22,7 +22,7 @@ function App() {
             <Header />
 
             <Box style={{ padding: 20 }}>
-                <CreateNotes />
+                <CreateNotes addHandle={addHandle} />
                 <Notes />
             </Box>
         </>
