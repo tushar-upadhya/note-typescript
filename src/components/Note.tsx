@@ -13,6 +13,7 @@ interface INoteProps {
     note: INote;
     deleteNoteHandle: (id: number) => void;
 }
+8;
 
 const Note: React.FC<INoteProps> = ({ note, deleteNoteHandle }) => {
     return (
