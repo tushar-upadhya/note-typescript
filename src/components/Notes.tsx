@@ -16,7 +16,11 @@ const Notes: React.FC<INoteProps> = ({ notes, deleteNoteHandle }) => {
 
             <Box>
                 {notes.map((note) => (
-                    <Note note={note} deleteNoteHandle={deleteNoteHandle} />
+                    <Note
+                        key={note.id}
+                        note={note}
+                        deleteNoteHandle={deleteNoteHandle}
+                    />
                 ))}
             </Box>
         </Box>

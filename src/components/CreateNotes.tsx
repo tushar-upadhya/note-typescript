@@ -27,11 +27,11 @@ const CreateNotes: React.FC<ICreateNoteProps> = ({ addHandle }) => {
         e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
     ) => {
         if (error) setError("");
-        console.log(e.target.name, e.target.value);
+        // console.log(e.target.name, e.target.value);
 
         setNote({ ...note, [e.target.name]: e.target.value });
     };
-    console.log(note);
+    // console.log(note);
 
     const onCreateHandle = () => {
         if (!note.title && !note.details) {
@@ -49,6 +49,7 @@ const CreateNotes: React.FC<ICreateNoteProps> = ({ addHandle }) => {
                 placeholder="title"
                 onChange={(e) => changeHandle(e)}
                 name="title"
+                value={note.title}
             />
 
             <Box component="span">30</Box>
@@ -57,6 +58,7 @@ const CreateNotes: React.FC<ICreateNoteProps> = ({ addHandle }) => {
                 placeholder="Details"
                 onChange={(e) => changeHandle(e)}
                 name="details"
+                value={note.details}
             />
 
             <Box component="span">30</Box>
