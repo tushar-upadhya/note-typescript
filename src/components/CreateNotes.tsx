@@ -12,7 +12,11 @@ const defaultObject = {
     date: new Date().toLocaleString().toString(),
 };
 
-const CreateNotes: React.FC = () => {
+interface ICreateNoteProps {
+    addHandle: (note: INote) => void;
+}
+
+const CreateNotes: React.FC<ICreateNoteProps> = ({ addHandle }) => {
     const [note, setNote] = useState<INote>(defaultObject);
 
     const changeHandle = (
@@ -25,7 +29,9 @@ const CreateNotes: React.FC = () => {
     };
     // console.log(note);
 
-    const onClickHandle = () => {};
+    const onClickHandle = () => {
+        addHandle({ ...note, id: "" });
+    };
 
     return (
         <Container>
