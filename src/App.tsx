@@ -1,43 +1,40 @@
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
+
+import { NoteObject } from "./interface/inter_face";
+
+import Header from "./components/Header";
+import Notes from "./components/Notes";
+import CreateNote from "./components/CreateNote";
 
 import { Box } from "@mui/material";
 
-import "./App.css";
-
-import CreateNotes from "./components/CreateNotes";
-import Header from "./components/Header";
-import Notes from "./components/Notes";
-
-import { INote } from "./interfaces/interFace";
-
 function App() {
-    const [notes, setNotes] = useState<INote[]>([]);
+    const [notes, setNotes] = useState<NoteObject[]>([]);
 
     useEffect(() => {
-        setNotes(JSON.parse(sessionStorage.getItem("notes") as string));
+        if (sessionStorage.getItem("notes")) {
+            setNotes(JSON.parse(sessionStorage.getItem("notes") as string));
+        }
     }, []);
 
-    const addHandle = (note: INote) => {
-        setNotes([...notes, note]);
-
-        sessionStorage.setItem("notes", JSON.stringify([...notes, note]));
+    const deleteNote = (id: number) => {
+        const updatedNotes = notes.filter((note) => note.id !== id);
+        setNotes(updatedNotes);
+        sessionStorage.setItem("notes", JSON.stringify(updatedNotes));
     };
 
-    const deleteNoteHandle = (id: number) => {
-        const updatedNotes = notes.filter((note) => note.id !== id);
-
-        setNotes(updatedNotes);
-
-        sessionStorage.setItem("notes", JSON.stringify(updatedNotes));
+    const addNote = (note: NoteObject) => {
+        setNotes([note, ...notes]);
+        console.log(sessionStorage);
+        sessionStorage.setItem("notes", JSON.stringify([note, ...notes]));
     };
 
     return (
         <>
             <Header />
-
             <Box style={{ padding: 20 }}>
-                <CreateNotes addHandle={addHandle} />
-                <Notes notes={notes} deleteNoteHandle={deleteNoteHandle} />
+                <CreateNote addNote={addNote} />
+                <Notes notes={notes} deleteNote={deleteNote} />
             </Box>
         </>
     );

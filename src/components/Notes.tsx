@@ -1,30 +1,26 @@
+import { Box, Typography } from "@mui/material";
 
-import { Box, Typography } from '@mui/material';
-
-import { NoteObject } from '../models/note';
+import { NoteObject } from "../interface/inter_face";
 
 // components
-import Note from './Note';
+import Note from "./Note";
 
 interface INotesProps {
-    notes: NoteObject[],
-    deleteNote: (id: number) => void
+    notes: NoteObject[];
+    deleteNote: (id: number) => void;
 }
 
 const Notes: React.FunctionComponent<INotesProps> = ({ notes, deleteNote }) => {
-
     return (
         <Box>
             <Typography variant="h5">Notes</Typography>
-            <Box style={{ display: 'flex', flexWrap: 'wrap' }}>
-                {
-                    notes.map(note => (
-                        <Note key={note.id} note={note} deleteNote={deleteNote} />
-                    ))
-                }
+            <Box style={{ display: "flex", flexWrap: "wrap" }}>
+                {notes.map((note) => (
+                    <Note key={note.id} note={note} deleteNote={deleteNote} />
+                ))}
             </Box>
         </Box>
-    )
-}
+    );
+};
 
 export default Notes;
